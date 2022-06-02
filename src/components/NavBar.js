@@ -1,26 +1,25 @@
 import {Container,Row,Col} from "react-bootstrap";
 import CartWidget from "./CartWidget";
-const NavBar = (props) => {
+import {NavBarLinks} from "./NavBarLinks";
+const NavBar = ({title,links}) => {
+
     return (
         <Container as="header">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="#">
-                    <img src="logo.png" alt={props.title} height="56" />
+                    <img src="logo.png" alt={title} height="56" />
                 </a>
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Airplanes</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">UAV</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Cars</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Boats</a>
-                        </li>                        
+                        {
+                            NavBarLinks.map((item,index) =>{
+                                return (
+                                    <li key={index} className="nav-item active">
+                                        <a className={item.cName} href={item.url}>{item.title}</a>
+                                    </li>                                    
+                                )
+                            })
+                        }
                     </ul>
                 </div>
                 <span className="navbar-text">
