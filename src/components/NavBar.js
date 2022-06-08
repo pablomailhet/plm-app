@@ -2,7 +2,6 @@ import {Container,Row,Col} from "react-bootstrap";
 import CartWidget from "./CartWidget";
 import {NavBarLinks} from "./NavBarLinks";
 const NavBar = ({title,links}) => {
-
     return (
         <Container as="header">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">

@@ -5,7 +5,7 @@ const App = () => {
     return (
         <>
             <NavBar title="3DFactory" />
-            <ItemListContainer greeting="Bienvenido!" />
+            <ItemListContainer greeting="Airplanes" />
             <Footer />
         </>
     );
