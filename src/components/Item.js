@@ -1,5 +1,6 @@
 import {Container,Button,Card} from "react-bootstrap";
-const Item = ({item,onAdd}) => {
+import ItemCount from "./ItemCount";
+const Item = ({item}) => {
     return (
       <Card className="col-md-3 mx-3 my-3">
         <Card.Body>
@@ -7,11 +8,8 @@ const Item = ({item,onAdd}) => {
             <img src={item.pictureUrl} style={{height: "120px"}} />
             <Card.Text className="pt-2">{item.description}</Card.Text>
             <Card.Text><b>$ {item.price}</b></Card.Text>
-            <Container className="pt-2"> 
-                <Button variant="primary" onClick={onAdd}>Add to cart</Button>
-            </Container>                            
         </Card.Body>
-      </Card>      
+      </Card>
     )
 }
 export default Item

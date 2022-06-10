@@ -7,15 +7,15 @@ const ItemListContainer = (props) => {
     const [items,setItems] = useState([]);
 
     useEffect(()=>{
-        console.log("Cargando productos...")
+        console.log("1.1_Cargando productos...")
 
         const task = new Promise((resolve,reject)=>{
             setTimeout(()=>{
                 resolve(productos);
-            },1000);
+            },2000);
         });
         task.then(resolve=>{
-            console.log("Productos cargados...");
+            console.log("1.2_Productos cargados...");
             setItems(resolve);
         }).catch(reject=>{
             console.log(reject);
@@ -24,16 +24,16 @@ const ItemListContainer = (props) => {
     },[])
 
     return (
-        <Container as="main" className="text-center p-3">
+        <Container className="text-center p-3">
             <Row className="align-items-center">
                 <Col>
                     <Container className="text-center p-3 text-success">
-                        <h3>{props.greeting}</h3>
+                        {items.length>0 ? <h3>{props.greeting}</h3> : <h3>Cargando {props.greeting}...</h3>}
                     </Container>
                 </Col>
             </Row>
             <Row>
-                {items.length>0 ? <ItemList items={items} /> : 'Cargando...'}
+                {items.length>0 ? <ItemList items={items} /> : ''}
             </Row>
         </Container>
     );

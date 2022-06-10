@@ -4,7 +4,7 @@ const ItemList = ({items}) => {
         <>
             {
                 items.map((item,index) =>{
-                    return <Item key={index} item={item} onAdd={()=>{}} />
+                    return <Item key={item.id} item={item} />
                 })
             }            
         </>
