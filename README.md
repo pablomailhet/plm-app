@@ -1,6 +1,6 @@
 # 3DFactory
 
-Es un ecommerce que comercializar distintos tipos de modelos rc impresos en 3d  (http://localhost:3000/).
+Es un ecommerce demo que tiene como objetivo aprender react.  (http://localhost:3000/).
 
 ## Instalacion
 
