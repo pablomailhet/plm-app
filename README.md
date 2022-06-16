@@ -17,4 +17,4 @@ Abra [http://localhost:3000](http://localhost:3000) para verlo en su navegador.
 
 Si la instalación fue exitosa debería ver algo como la siguiente imágen.
 
-![plm-app](https://user-images.githubusercontent.com/106112558/174151587-c1ea3a36-4b5a-4e9c-b8b5-8608d6dfcd71.gif)
+
