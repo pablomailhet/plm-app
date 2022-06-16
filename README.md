@@ -1,4 +1,4 @@
-# 3DFactory
+# plm-app
 
 Es un ecommerce demo que tiene como objetivo aprender react.  (http://localhost:3000/).
 
