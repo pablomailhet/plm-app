@@ -15,6 +15,6 @@ Es un ecommerce que comercializar distintos tipos de modelos rc impresos en 3d  
 Ejecuta la aplicación de forma local.\
 Abra [http://localhost:3000](http://localhost:3000) para verlo en su navegador.
 
-Si la instalación fue exitosa debería ver algo como la siguiente imágen.
+
 
 
