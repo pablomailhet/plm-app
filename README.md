@@ -13,4 +13,4 @@ Es un ecommerce demo que tiene como objetivo aprender react.  (http://localhost:
 ### `npm start`
 
 Ejecuta la aplicación de forma local.\
-Abra [http://localhost:3000](http://localhost:3000) para verlo en su navegador.
+Abra [http://localhost:3000](http://localhost:3000) para verlo en su navegador...
