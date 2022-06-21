@@ -1,9 +1,13 @@
-import {Card} from "react-bootstrap";
+import {Card,Button} from "react-bootstrap";
 import ItemCount from "../itemCount/ItemCount";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 const ItemDetail = ({item}) => {
 
-    const onAdd = () => {
+    const [quantity,setQuantity] = useState(0);
 
+    const onAdd = (quantityToAdd) => {
+        setQuantity(quantityToAdd);
     }
 
     return (
@@ -13,7 +17,14 @@ const ItemDetail = ({item}) => {
                 <img src={item.pictureUrl} height={300} />
                 <Card.Text className="pt-2">{item.description}</Card.Text>
                 <Card.Text><b>$ {item.price}</b></Card.Text>
-                <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />
+                {
+                    quantity > 0 ? 
+                        <Link to={"/cart"}>
+                            <Button variant="primary">Terminar mi compra</Button>
+                        </Link> 
+                        : 
+                        <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />
+                }
             </Card.Body>
         </Card>        
     )
