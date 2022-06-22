@@ -9,7 +9,7 @@ import Loader from "../../widget/loader/Loader";
 const ItemListContainer = () => {
 
     const [items,setItems] = useState([]);
-    const [loaded,setLoaded] = useState(false);    
+    const [loaded,setLoaded] = useState(false);
 
     const {categoryId} = useParams();
 
