@@ -13,22 +13,40 @@ const CartContext = ({children}) => {
     const addItem = (item, quantity) => {
 
         if(!isInCart(item.id)){
+
+            //Guardo en el item la cantidad seleccionada para el caso de querer modificar
+            //me traiga precargado la cantidad anterior.
             item.quantity = quantity;
-            item.subtotal = item.price * quantity;
-            items.push(item);
-            setItems(items);
+
+            let copiaItem = {...item};
+            let copiaItems = [...items];
+
+            copiaItem.quantity = quantity;
+            copiaItem.subtotal = copiaItem.price * quantity;
+            copiaItems.push(copiaItem);
+
+            setItems(copiaItems);
             setCantidadTotal(cantidad_total + quantity);
-            setPrecioTotal(precio_total + item.subtotal);
+            setPrecioTotal(precio_total + copiaItem.subtotal);
         }
         else{
             let itemIndex = items.findIndex(i => i.id == item.id);
             if(itemIndex>=0){
-                let subtotal = item.price * quantity;
-                setCantidadTotal(cantidad_total - items[itemIndex].quantity + quantity);
-                setPrecioTotal(precio_total - items[itemIndex].subtotal + subtotal);
-                items[itemIndex].quantity = quantity;
-                items[itemIndex].subtotal = subtotal;
-                setItems(items);
+
+                //Guardo en el item la cantidad seleccionada para el caso de querer modificar
+                //me traiga precargado la cantidad anterior.
+                item.quantity = quantity;
+
+                let copiaItem = {...item};
+                let copiaItems = [...items];
+                let subtotal = copiaItem.price * quantity;
+
+                setCantidadTotal(cantidad_total - copiaItems[itemIndex].quantity + quantity);
+                setPrecioTotal(precio_total - copiaItems[itemIndex].subtotal + subtotal);
+                copiaItems[itemIndex].quantity = quantity;
+                copiaItems[itemIndex].subtotal = subtotal;
+                setItems(copiaItems);
+                
             }
         }
 

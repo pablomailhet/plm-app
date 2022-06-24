@@ -8,7 +8,7 @@ const CartWidget = () => {
     return (
         <Link to={"/cart"}>
             <span className="material-symbols-outlined text-success">
-                    shopping_cart{objCartContext.cantidad_total>0 ? objCartContext.cantidad_total : null}
+                {objCartContext.cantidad_total>0 ? "shopping_cart" + objCartContext.cantidad_total : ''}
             </span>
         </Link>
     );

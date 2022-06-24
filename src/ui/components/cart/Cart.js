@@ -17,7 +17,7 @@ const Cart = () => {
     if(objCartContext.items.length>0){
         return (
             <Container className="text-center p-3">
-                
+
                 <Row className="bg-light align-items-center">
                     <Col>
                         Articulo
@@ -34,7 +34,8 @@ const Cart = () => {
                     <Col lg="2">
                         
                     </Col>                                                                                 
-                </Row>            
+                </Row>
+
                 {
                     objCartContext.items.map((item,key) =>{
                         return( 
@@ -60,6 +61,7 @@ const Cart = () => {
                         );
                     })
                 }
+
                 <Row className="bg-light align-items-center">
                     <Col>
                         TOTALES
@@ -76,7 +78,7 @@ const Cart = () => {
                     <Col lg="2">
                         <Button variant="primary" onClick={clear}>Vaciar carrito</Button>                
                     </Col>                                                                                 
-                </Row>             
+                </Row>
                 
             </Container>        
     
@@ -86,7 +88,7 @@ const Cart = () => {
         return (
             <Container className="text-center p-3">
                 <h3>
-                    Carrito vacio...
+                    Carrito vacio... <Link to={"/"}>ir a productos</Link>
                 </h3>
             </Container>
         );

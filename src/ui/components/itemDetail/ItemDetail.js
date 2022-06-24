@@ -1,11 +1,13 @@
 import {Card,Button} from "react-bootstrap";
 import ItemCount from "../itemCount/ItemCount";
 import {useState, useContext} from "react";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import { cartContext } from "../../../api/context/CartContext";
 
 const ItemDetail = ({item}) => {
+
+    let navigate = useNavigate();
 
     const objCartContext = useContext(cartContext);
 
@@ -17,6 +19,7 @@ const ItemDetail = ({item}) => {
 
     const addToCart = () => {
         objCartContext.addItem(item,quantity);
+        navigate("/cart");
     }
 
     return (
@@ -28,9 +31,7 @@ const ItemDetail = ({item}) => {
                 <Card.Text><b>$ {item.price}</b></Card.Text>
                 {
                     quantity > 0 ? 
-                        <Link to={"/cart"} onClick={addToCart}>
-                            <Button variant="primary">Terminar mi compra</Button>
-                        </Link> 
+                        <Button variant="primary" onClick={addToCart}>Terminar mi compra</Button>
                         : 
                         <ItemCount stock={item.stock} initial={item.quantity ? item.quantity : 1} onAdd={onAdd} />
                 }
