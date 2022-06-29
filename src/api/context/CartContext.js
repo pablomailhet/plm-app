@@ -16,10 +16,10 @@ const CartContext = ({children}) => {
 
             //Guardo en el item la cantidad seleccionada para el caso de querer modificar
             //me traiga precargado la cantidad anterior.
-            item.quantity = quantity;
+            //item.quantity = quantity;
 
-            let copiaItem = {...item};
-            let copiaItems = [...items];
+            const copiaItem = {...item};
+            const copiaItems = [...items];
 
             copiaItem.quantity = quantity;
             copiaItem.subtotal = copiaItem.price * quantity;
@@ -30,16 +30,16 @@ const CartContext = ({children}) => {
             setPrecioTotal(precio_total + copiaItem.subtotal);
         }
         else{
-            let itemIndex = items.findIndex(i => i.id == item.id);
+            const itemIndex = items.findIndex(i => i.id == item.id);
             if(itemIndex>=0){
 
                 //Guardo en el item la cantidad seleccionada para el caso de querer modificar
                 //me traiga precargado la cantidad anterior.
-                item.quantity = quantity;
+                //item.quantity = quantity;
 
-                let copiaItem = {...item};
-                let copiaItems = [...items];
-                let subtotal = copiaItem.price * quantity;
+                const copiaItem = {...item};
+                const copiaItems = [...items];
+                const subtotal = copiaItem.price * quantity;
 
                 setCantidadTotal(cantidad_total - copiaItems[itemIndex].quantity + quantity);
                 setPrecioTotal(precio_total - copiaItems[itemIndex].subtotal + subtotal);
@@ -53,14 +53,12 @@ const CartContext = ({children}) => {
     };
 
     const removeItem = (itemId) => {
-        if(itemId>0){
-            let itemIndex = items.findIndex(item => item.id == itemId);
-            if(itemIndex>=0){
-                setCantidadTotal(cantidad_total - items[itemIndex].quantity);
-                setPrecioTotal(precio_total - items[itemIndex].subtotal);
-                setItems(items.filter(item => item.id != itemId));
-            }            
-        }
+        const itemIndex = items.findIndex(item => item.id == itemId);
+        if(itemIndex>=0){
+            setCantidadTotal(cantidad_total - items[itemIndex].quantity);
+            setPrecioTotal(precio_total - items[itemIndex].subtotal);
+            setItems(items.filter(item => item.id != itemId));
+        }            
     };    
 
     const clear = () => {
@@ -70,7 +68,7 @@ const CartContext = ({children}) => {
     };   
     
     const isInCart = (itemId) => {
-        let itemsFilter = items.filter(item => item.id == itemId);
+        const itemsFilter = items.filter(item => item.id == itemId);
         return itemsFilter.length > 0 ? true : false;
     };   
 

@@ -7,7 +7,7 @@ import { cartContext } from "../../../api/context/CartContext";
 
 const ItemDetail = ({item}) => {
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const objCartContext = useContext(cartContext);
 

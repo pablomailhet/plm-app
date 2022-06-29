@@ -55,7 +55,7 @@ const Cart = () => {
                                 ${item.subtotal}
                             </Col>                                                                                 
                             <Col lg="2">
-                                <Button id={item.id} variant="primary" onClick={removeItem}>Quitar</Button>
+                                <Button id={item.id} variant="outline-danger" onClick={removeItem}>Quitar</Button>
                             </Col>                                                                                 
                         </Row>
                         );
@@ -76,7 +76,7 @@ const Cart = () => {
                         ${objCartContext.precio_total}
                     </Col>                                                                                 
                     <Col lg="2">
-                        <Button variant="primary" onClick={clear}>Vaciar carrito</Button>                
+                        <Button variant="outline-danger" onClick={clear}>Vaciar carrito</Button>
                     </Col>                                                                                 
                 </Row>
                 
