@@ -1,9 +1,9 @@
-import {Spinner} from "react-bootstrap";
+import {Spinner, Container} from "react-bootstrap";
 const Loader = () => {
     return (
-        <div>
+        <Container className="text-center p-3">
             <Spinner animation="border" variant="success" />
-        </div>
+        </Container>
     )
 }
 export default Loader

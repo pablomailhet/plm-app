@@ -23,11 +23,12 @@ const Cart = () => {
                         Articulo
                     </Col>
                     <Col lg="2">
+                        Precio unit.
+                    </Col>                      
+                    <Col lg="2">
                         Cantidad
                     </Col>
-                    <Col lg="2">
-                        Precio
-                    </Col>     
+  
                     <Col lg="2">
                         Subtotal
                     </Col>                                                                                 
@@ -46,11 +47,11 @@ const Cart = () => {
                                 </Link>
                             </Col>
                             <Col lg="2">
+                                ${item.price}
+                            </Col>                            
+                            <Col lg="2">
                                 {item.quantity}
                             </Col>
-                            <Col lg="2">
-                                ${item.price}
-                            </Col>     
                             <Col lg="2">
                                 ${item.subtotal}
                             </Col>                                                                                 
@@ -67,16 +68,24 @@ const Cart = () => {
                         TOTALES
                     </Col>
                     <Col lg="2"> 
-                        {objCartContext.cantidad_total}
+                        
                     </Col>
                     <Col lg="2">
-                        
+                        {objCartContext.cantidad_total}
                     </Col>     
                     <Col lg="2">
                         ${objCartContext.precio_total}
                     </Col>                                                                                 
                     <Col lg="2">
                         <Button variant="outline-danger" onClick={clear}>Vaciar carrito</Button>
+                    </Col>                                                                                 
+                </Row>
+
+                <Row className="align-items-center mt-3">
+                    <Col>
+                        <Link to={"/checkout"}>
+                            <Button variant="primary">Checkout</Button>
+                        </Link>
                     </Col>                                                                                 
                 </Row>
                 

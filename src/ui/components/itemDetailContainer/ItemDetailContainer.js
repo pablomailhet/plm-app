@@ -2,13 +2,11 @@ import {Container,Row} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ItemDetail from "../itemDetail/ItemDetail";
 
-//import {products} from "../../../assets/Products";
-
 import Loader from "../../widget/loader/Loader";
 
 import { useParams } from "react-router-dom";
 
-import { db } from "../../../api/firebase/firebase";
+import { collectionProducts } from "../../../api/firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
@@ -21,37 +19,16 @@ const ItemDetailContainer = () => {
 
     useEffect(()=>{
 
-        const documentReference = doc(db,"products",itemId);
-        const promiseDocument = getDoc(documentReference);
-        promiseDocument
-            .then((documentSnapshot)=>{
-                if(documentSnapshot.exists()){
-                    setItem({id:documentSnapshot.id, ...documentSnapshot.data()});
-                }
-                else{
-                    setItem(undefined);
-                }
+        const documentReference = doc(collectionProducts,itemId);
+        getDoc(documentReference)
+            .then((response)=>{
+                response.exists() ? setItem({id:response.id, ...response.data()}) : setItem(undefined)
                 setLoaded(true);
             })
             .catch((error)=>{
                 setItem(undefined);
                 setLoaded(true);
             });            
-
-
-        /*
-        const getItem = new Promise((resolve)=>{
-            setTimeout(()=>{
-                resolve(products.find((product) => {
-                    return product.id == itemId;
-                }));
-            },500);
-        });
-        getItem.then(resolve=>{
-            setLoaded(true);
-            setItem(resolve);
-        });
-        */     
 
     },[itemId])    
 
