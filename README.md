@@ -33,3 +33,4 @@ Es un ecommerce demo que tiene como objetivo aprender react. (http://localhost:3
 Ingresar a [http://localhost:3000](http://localhost:3000) para ejecutar la aplicación de forma local...
 
 ## Demo
+![demo](https://raw.githubusercontent.com/pablomailhet/plm-app/main/public/img/demo.gif)
