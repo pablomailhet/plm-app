@@ -12,40 +12,30 @@ const CartContext = ({children}) => {
 
     const addItem = (item, quantity) => {
 
+        const newItem = {...item};
+        const newItems = [...items];
+
         if(!isInCart(item.id)){
 
-            //Guardo en el item la cantidad seleccionada para el caso de querer modificar
-            //me traiga precargado la cantidad anterior.
-            //item.quantity = quantity;
+            newItem.quantity = quantity;
+            newItem.subtotal = newItem.price * quantity;
+            newItems.push(newItem);
 
-            const copiaItem = {...item};
-            const copiaItems = [...items];
-
-            copiaItem.quantity = quantity;
-            copiaItem.subtotal = copiaItem.price * quantity;
-            copiaItems.push(copiaItem);
-
-            setItems(copiaItems);
+            setItems(newItems);
             setCantidadTotal(cantidad_total + quantity);
-            setPrecioTotal(precio_total + copiaItem.subtotal);
+            setPrecioTotal(precio_total + newItem.subtotal);
         }
         else{
-            const itemIndex = items.findIndex(i => i.id == item.id);
+            const itemIndex = items.findIndex(i => i.id === item.id);
             if(itemIndex>=0){
 
-                //Guardo en el item la cantidad seleccionada para el caso de querer modificar
-                //me traiga precargado la cantidad anterior.
-                //item.quantity = quantity;
+                const subtotal = newItem.price * quantity;
 
-                const copiaItem = {...item};
-                const copiaItems = [...items];
-                const subtotal = copiaItem.price * quantity;
-
-                setCantidadTotal(cantidad_total - copiaItems[itemIndex].quantity + quantity);
-                setPrecioTotal(precio_total - copiaItems[itemIndex].subtotal + subtotal);
-                copiaItems[itemIndex].quantity = quantity;
-                copiaItems[itemIndex].subtotal = subtotal;
-                setItems(copiaItems);
+                setCantidadTotal(cantidad_total - newItems[itemIndex].quantity + quantity);
+                setPrecioTotal(precio_total - newItems[itemIndex].subtotal + subtotal);
+                newItems[itemIndex].quantity = quantity;
+                newItems[itemIndex].subtotal = subtotal;
+                setItems(newItems);
                 
             }
         }
@@ -53,11 +43,11 @@ const CartContext = ({children}) => {
     };
 
     const removeItem = (itemId) => {
-        const itemIndex = items.findIndex(item => item.id == itemId);
+        const itemIndex = items.findIndex(item => item.id === itemId);
         if(itemIndex>=0){
             setCantidadTotal(cantidad_total - items[itemIndex].quantity);
             setPrecioTotal(precio_total - items[itemIndex].subtotal);
-            setItems(items.filter(item => item.id != itemId));
+            setItems(items.filter(item => item.id !== itemId));
         }            
     };    
 
@@ -68,9 +58,19 @@ const CartContext = ({children}) => {
     };   
     
     const isInCart = (itemId) => {
-        const itemsFilter = items.filter(item => item.id == itemId);
+        const itemsFilter = items.filter(item => item.id === itemId);
         return itemsFilter.length > 0 ? true : false;
-    };   
+    };
+    
+    const getSelectedCount = (itemId) => {
+        if(items.length>0){
+            const itemsFilter = items.filter(item => item.id === itemId);
+            return itemsFilter.length===1 ? itemsFilter[0].quantity : 1;
+        }
+        else{
+            return 1;
+        }
+    };
 
     const contextValue = {
         items: items,
@@ -79,7 +79,8 @@ const CartContext = ({children}) => {
         addItem: addItem,
         removeItem: removeItem,
         clear: clear,
-        isInCart: isInCart
+        isInCart: isInCart,
+        getSelectedCount: getSelectedCount
     };
 
     return (

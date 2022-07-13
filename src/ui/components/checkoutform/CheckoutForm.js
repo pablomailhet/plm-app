@@ -1,4 +1,4 @@
-import {Container,Form, Button} from "react-bootstrap";
+import {Container,Form, Button, Alert} from "react-bootstrap";
 
 import { useState } from "react"
 
@@ -7,16 +7,29 @@ const CheckoutForm = ({onSubmit}) => {
     const [buyer, setBuyer] = useState({
         name: "",
         email: "",
-        phone: ""
+        phone: "",
+        c_email: ""
     });
+
+    const [error,setError] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(buyer);
+        if(buyer.email===buyer.c_email){
+            const {c_email, ...newBuyer} = buyer;
+            onSubmit(newBuyer);
+        }
+        else{
+            setError("Error al confirmar el campo email.");
+            setBuyer({ ...buyer, "c_email" : ""});
+        }
     };
 
     const handleChange = (e) => {
-        setBuyer({ ...buyer, [e.target.id] : e.target.value})
+        if(error!==""){
+            setError("");
+        }
+        setBuyer({ ...buyer, [e.target.id] : e.target.value});
     };
 
     return (
@@ -38,6 +51,19 @@ const CheckoutForm = ({onSubmit}) => {
                     <Form.Control onChange={handleChange} type="email" required placeholder="Ingrese un email..." value={buyer.email} />
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="c_email">
+                    <Form.Label>Confirmar Email</Form.Label>
+                    <Form.Control onChange={handleChange} type="email" required placeholder="Confirme su email..." value={buyer.c_email} />
+                </Form.Group>                
+                {
+                    error!==""
+                    ?
+                        <Alert variant="danger">
+                            {error}
+                        </Alert>                         
+                    :
+                        ''
+                }
                 <Form.Group className="mb-3" controlId="phone">
                     <Form.Label>Telefono</Form.Label>
                     <Form.Control onChange={handleChange} type="text" required placeholder="Ingrese un telefono..." value={buyer.phone} />

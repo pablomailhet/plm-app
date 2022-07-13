@@ -6,7 +6,7 @@ const Item = ({item}) => {
         <Card.Body>
             <Card.Title>{item.title}</Card.Title>
             <Link to={"/item/" + item.id}>
-              <img src={item.pictureUrl} height={100} />
+              <img alt={item.title} src={item.pictureUrl} height={100} />
             </Link>
             <Card.Text><b>$ {item.price}</b></Card.Text>
             <Link to={"/item/" + item.id}>

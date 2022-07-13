@@ -15,31 +15,28 @@ const ItemCount = ({stock,initial,onAdd}) => {
     const addToCart = () => {
         onAdd(cantidad);
     }
-    if(stock>1){
-        return (
-            <>
-                <Container className="pt-2">
-                    <Button variant="outline-success" onClick={quitar}>-</Button>
-                    <Container as="span" className="mx-2">Cantidad: {cantidad}</Container>
-                    <Button variant="outline-success" onClick={agregar}>+</Button>
-                </Container>     
-                <Container className="pt-2"> 
-                    <Button variant="primary" onClick={addToCart}>Add to cart</Button>
-                </Container>                           
-            </>
-        );
-    }
-    else{
-        return (
-            <>
-                <Container className="pt-2">
-                    <Container as="span" className="mx-2">Último disponible...</Container>
-                </Container>     
-                <Container className="pt-2"> 
-                    <Button variant="primary" onClick={addToCart}>Add to cart</Button>
-                </Container>                           
-            </>
-        );
-    }
+
+    return (
+        <>
+            <Container className="pt-2">
+                {
+                    stock>1
+                    ?
+                        <>
+                            <Button variant="outline-success" onClick={quitar}>-</Button>
+                            <Container as="span" className="mx-2">Cantidad: {cantidad}</Container>
+                            <Button variant="outline-success" onClick={agregar}>+</Button>
+                        </>
+                    :
+                        <Container as="span" className="mx-2">Último disponible...</Container>
+                }
+            </Container>     
+            <Container className="pt-2"> 
+                <Button variant="primary" onClick={addToCart}>Add to cart</Button>
+            </Container>                           
+        </>
+    );
+
+
 };
 export default ItemCount;

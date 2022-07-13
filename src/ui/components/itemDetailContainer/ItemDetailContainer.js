@@ -1,4 +1,4 @@
-import {Container,Row} from "react-bootstrap";
+import {Container,Row, Alert} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ItemDetail from "../itemDetail/ItemDetail";
 
@@ -11,22 +11,25 @@ import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
 
-    const [item,setItem] = useState({});
-
     const [loaded,setLoaded] = useState(false);
+    const [item,setItem] = useState({});
+    const [error,setError] = useState("");
 
     const {itemId} = useParams();
 
     useEffect(()=>{
 
         const documentReference = doc(collectionProducts,itemId);
+        
         getDoc(documentReference)
             .then((response)=>{
                 response.exists() ? setItem({id:response.id, ...response.data()}) : setItem(undefined)
-                setLoaded(true);
             })
-            .catch((error)=>{
+            .catch((err)=>{
+                setError(err);
                 setItem(undefined);
+            })
+            .finally(()=>{
                 setLoaded(true);
             });            
 
@@ -35,7 +38,25 @@ const ItemDetailContainer = () => {
     return (
         <Container className="text-center p-3">
             <Row className="align-items-center">
-                {loaded ? item !==undefined ? <ItemDetail item={item} /> : <h3>Producto no encontrado...</h3> : <Loader />}
+                {
+                    loaded 
+                    ? 
+                        error===""
+                        ?
+                            item !==undefined 
+                            ? 
+                                <ItemDetail item={item} /> 
+                            : 
+                                <Alert variant="warning">
+                                    Producto no encontrado...
+                                </Alert>                                
+                        :
+                            <Alert variant="danger">
+                                Se produjo un error ({error})
+                            </Alert>                        
+                    : 
+                        <Loader />
+                }
             </Row>
         </Container>
     )

@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
 import { collectionOrders } from "../../../api/firebase/firebase";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -6,7 +6,7 @@ import { cartContext } from "../../../api/context/CartContext";
 import { useContext, useState } from "react";
 
 import Loader from "../../widget/loader/Loader";
-import CheckoutItemList from "../checkoutitemlist/CheckoutItemList";
+import CartDetail from "../cartdetail/CartDetail";
 import CheckoutForm from "../checkoutform/CheckoutForm";
 
 import { Link } from "react-router-dom";
@@ -15,8 +15,9 @@ const Checkout = () => {
 
     const objCartContext = useContext(cartContext);
 
+    const [loading,setLoading] = useState(false);    
     const [idOrder,setIdOrder] = useState("");
-    const [loading,setLoading] = useState(false);
+    const [error,setError] = useState("");
 
     const saveOrder = (buyer) => {
 
@@ -45,42 +46,52 @@ const Checkout = () => {
             .then(result=>{
                 setIdOrder(result.id);
                 objCartContext.clear();
-                setLoading(false);
             })
-            .catch(error=>{
-                console.log(error);
-            });
+            .catch(err=>{
+                setError(err);
+            })
+            .finally(()=>{
+                setLoading(false);
+            }); 
 
     }
 
     return (
-        <>
+        <Container className="text-center p-3">
             {
                 loading
                 ?
                     <Loader />
                 :
-                    idOrder==""
+                    error===""
                     ?
-                        objCartContext.items.length>0
+                        idOrder===""
                         ?
-                            <>
-                                <CheckoutItemList items={objCartContext.items} cantidad_total={objCartContext.cantidad_total} precio_total={objCartContext.precio_total} />
-                                <CheckoutForm onSubmit={saveOrder} />
-                            </>
-                        :
-                            <Container className="text-center p-3">
-                                <h3>
+                            objCartContext.items.length>0
+                            ?
+                                <>
+                                    <CartDetail 
+                                        items={objCartContext.items} 
+                                        precio_total={objCartContext.precio_total}
+                                        inCart={false} />
+                                    <CheckoutForm onSubmit={saveOrder} />
+                                </>
+                            :
+                                <Alert variant="warning">
                                     Carrito vacio... <Link to={"/"}>ir a productos</Link>
-                                </h3>
-                            </Container>
+                                </Alert>
+
+                        :
+                            <Alert variant="success">
+                                <p>Tu orden de compra fue exitosa!</p>
+                                <p>Tu número compra es: {idOrder}</p>
+                            </Alert>
                     :
-                        <Container className="text-center p-3">
-                            <p>Tu orden de compra fue exitosa!</p>
-                            <p>Tu número compra es: {idOrder}</p>
-                        </Container>
+                        <Alert variant="danger">
+                            Se produjo un error ({error}) <Link to={"/cart"}>ir al cart</Link>
+                        </Alert>
             }
-        </>
+        </Container>
     );
 
 }
